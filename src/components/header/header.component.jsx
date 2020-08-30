@@ -2,8 +2,10 @@ import React from "react";
 import {Link} from "react-router-dom";
 import { connect } from 'react-redux';
 import {auth} from '../../firebase/firebase.utils'
-import {ReactComponent as Logo} from  "../../asessts/original.svg"
 
+import {ReactComponent as Logo} from  "../../asessts/original.svg"
+import CartIcon from '../cart-icon/cart-icon.components';
+import CartDropdown from '../cart-dropdown/cart-dropdown.components'
 
 import './header.style.scss'
 function Header(props){
@@ -22,14 +24,20 @@ CONTACT
 {
     props.currentUser ?
     <div className='option' onClick={()=>auth.signOut()}>SiGN OuT</div>
-    :
+    :(
     <Link className='option' to = '/signin'>SIGN IN</Link>
-}
+    )}
+    <CartIcon/>
 </div>
-</div>)
+{
+    props.hidden ? null :
+<CartDropdown/>
+}
+    </div>)
 }
 // used to get user data from reducer
-const mapStateToProps = state => ({
-    currentUser: state.user.currentUser
+const mapStateToProps = ({user: {currentUser}, cart:{hidden}}) => ({
+    currentUser,
+    hidden
 });
 export default connect(mapStateToProps)(Header);
