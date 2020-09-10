@@ -6,7 +6,7 @@ const onToken =token =>{
 }
 const StripeCheckoutButton = ({price})=> {
     const priceForStripe = price *100;
-    const publishableKey ="Your Stripe Publishable key";
+    const publishableKey =process.env.STRIPE_KEY;
     return(
     <StripeCheckout
     label='Pay Now'
