@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {auth} from '../../firebase/firebase.utils'
 import {createStructuredSelector} from 'reselect';
 
+import {signOutStart} from '../../redux/user/user.actions';
 import {ReactComponent as Logo} from  "../../asessts/original.svg"
 import CartIcon from '../cart-icon/cart-icon.components';
 import CartDropdown from '../cart-dropdown/cart-dropdown.components'
@@ -21,7 +22,7 @@ return (
     <OptionLink to='/shop'>SHOP</OptionLink>
     <OptionLink to='/shop'>CONTACT</OptionLink>
     {props.currentUser ? (
-      <OptionLink as='div' onClick={() => auth.signOut()}>
+      <OptionLink as='div' onClick={signOutStart}>
         SIGN OUT
       </OptionLink>
     ) : (
@@ -37,4 +38,7 @@ const mapStateToProps = createStructuredSelector({
     currentUser: selectCurrentUser,
     hidden: selectCartHidden 
 });
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = dispatch => ({
+  signOutStart: () => dispatch(signOutStart)
+})
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
