@@ -32,7 +32,7 @@ useEffect(()=>{
             exact
             path='/signin'
             render={() =>
-              this.props.currentUser ? (
+              currentUser ? (
                 <Redirect to='/' />
               ) : (
                 <SignInAndSignUpPage />
